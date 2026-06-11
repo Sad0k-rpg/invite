@@ -26,6 +26,11 @@ body{
     display:none;
 }
 
+#step1{
+    position:relative;
+    min-height:500px;
+}
+
 h1{
     font-size:48px;
     margin-bottom:30px;
@@ -62,7 +67,10 @@ button:hover{
 #noBtn{
     position:absolute;
     background:#d3b2ff;
-    left:250px;
+    left:55%;
+    top:70px;
+    transition:none;
+    z-index:10;
 }
 
 #continueBtn,
@@ -113,6 +121,10 @@ select{
 
 @media(max-width:768px){
 
+    .card{
+        padding:30px 20px;
+    }
+
     h1{
         font-size:32px;
     }
@@ -129,4 +141,7 @@ select{
         grid-template-columns:1fr;
     }
 
+    #step1{
+        min-height:420px;
+    }
 }
