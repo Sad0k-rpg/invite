@@ -1,8 +1,6 @@
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxP3fr8fGcf9g6jdpcd3QHti_PUSAy2R2tJMlSSlP6tOPAnSUka54LwtlxQ13cgfz6j/exec";
 
-let selectedFood = "";
-
 const noBtn = document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover", () => {
@@ -24,12 +22,11 @@ document.getElementById("continueBtn").onclick = () => {
 };
 
 document.getElementById("dateBtn").onclick = () => {
-
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
 
-    if(!date || !time){
-        alert("Оберіть дату і час");
+    if (!date || !time) {
+        alert("Please choose date and time");
         return;
     }
 
@@ -37,32 +34,40 @@ document.getElementById("dateBtn").onclick = () => {
     step4.classList.remove("hidden");
 };
 
+async function sendAnswer(option) {
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
+
+    try {
+        await fetch(SCRIPT_URL, {
+            method: "POST",
+            body: JSON.stringify({
+                date,
+                time,
+                food: option
+            })
+        });
+    } catch (e) {
+        console.log(e);
+    }
+
+    step4.classList.add("hidden");
+    step5.classList.remove("hidden");
+}
+
 document.querySelectorAll(".food").forEach(btn => {
-
-    btn.addEventListener("click", async () => {
-
-        selectedFood = btn.innerText;
-
-        const date = document.getElementById("date").value;
-        const time = document.getElementById("time").value;
-
-        try{
-
-            await fetch(SCRIPT_URL,{
-                method:"POST",
-                body:JSON.stringify({
-                    date,
-                    time,
-                    food:selectedFood
-                })
-            });
-
-        }catch(e){
-            console.log(e);
-        }
-
-        step4.classList.add("hidden");
-        step5.classList.remove("hidden");
+    btn.addEventListener("click", () => {
+        sendAnswer(btn.innerText);
     });
-
 });
+
+document.getElementById("customBtn").onclick = () => {
+    const customValue = document.getElementById("customFood").value.trim();
+
+    if (!customValue) {
+        alert("Please write your option");
+        return;
+    }
+
+    sendAnswer(customValue);
+};
