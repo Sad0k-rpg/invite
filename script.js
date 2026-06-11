@@ -1,77 +1,68 @@
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#ffdce8;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-}
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxP3fr8fGcf9g6jdpcd3QHti_PUSAy2R2tJMlSSlP6tOPAnSUka54LwtlxQ13cgfz6j/exec";
 
-.container{
-    width:100%;
-    max-width:600px;
-}
+let selectedFood = "";
 
-.card{
-    background:white;
-    padding:40px;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
-}
+const noBtn = document.getElementById("noBtn");
 
-.hidden{
-    display:none;
-}
+noBtn.addEventListener("mouseover", () => {
+    const x = Math.random() * 300;
+    const y = Math.random() * 80;
 
-.buttons{
-    margin-top:30px;
-    position:relative;
-    height:120px;
-}
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
 
-button{
-    border:none;
-    cursor:pointer;
-    padding:14px 28px;
-    border-radius:30px;
-    font-size:18px;
-}
+document.getElementById("yesBtn").onclick = () => {
+    step1.classList.add("hidden");
+    step2.classList.remove("hidden");
+};
 
-#yesBtn{
-    background:#ff4f93;
-    color:white;
-}
+document.getElementById("continueBtn").onclick = () => {
+    step2.classList.add("hidden");
+    step3.classList.remove("hidden");
+};
 
-#noBtn{
-    position:absolute;
-    background:#d9b3ff;
-    left:250px;
-}
+document.getElementById("dateBtn").onclick = () => {
 
-input,
-select{
-    width:100%;
-    padding:12px;
-    margin:10px 0;
-    border-radius:10px;
-    border:1px solid #ddd;
-}
+    const date = document.getElementById("date").value;
+    const time = document.getElementById("time").value;
 
-#continueBtn,
-#dateBtn{
-    background:#ff4f93;
-    color:white;
-    margin-top:15px;
-}
+    if(!date || !time){
+        alert("Оберіть дату і час");
+        return;
+    }
 
-.food-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:10px;
-}
+    step3.classList.add("hidden");
+    step4.classList.remove("hidden");
+};
 
-.food{
-    background:#ffe8f2;
-}
+document.querySelectorAll(".food").forEach(btn => {
+
+    btn.addEventListener("click", async () => {
+
+        selectedFood = btn.innerText;
+
+        const date = document.getElementById("date").value;
+        const time = document.getElementById("time").value;
+
+        try{
+
+            await fetch(SCRIPT_URL,{
+                method:"POST",
+                body:JSON.stringify({
+                    date,
+                    time,
+                    food:selectedFood
+                })
+            });
+
+        }catch(e){
+            console.log(e);
+        }
+
+        step4.classList.add("hidden");
+        step5.classList.remove("hidden");
+    });
+
+});
