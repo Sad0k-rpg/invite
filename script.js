@@ -1,6 +1,8 @@
 const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxP3fr8fGcf9g6jdpcd3QHti_PUSAy2R2tJMlSSlP6tOPAnSUka54LwtlxQ13cgfz6j/exec";
 
+let selectedOption = "";
+
 const noBtn = document.getElementById("noBtn");
 
 noBtn.addEventListener("mouseover", () => {
@@ -34,17 +36,50 @@ document.getElementById("dateBtn").onclick = () => {
     step4.classList.remove("hidden");
 };
 
-async function sendAnswer(option) {
+document.querySelectorAll(".food").forEach(btn => {
+    btn.addEventListener("click", () => {
+        document.querySelectorAll(".food").forEach(item => {
+            item.classList.remove("selected");
+        });
+
+        btn.classList.add("selected");
+        selectedOption = btn.innerText;
+
+        document.getElementById("customFood").value = "";
+    });
+});
+
+document.getElementById("customFood").addEventListener("input", () => {
+    document.querySelectorAll(".food").forEach(item => {
+        item.classList.remove("selected");
+    });
+
+    selectedOption = document.getElementById("customFood").value.trim();
+});
+
+document.getElementById("customBtn").onclick = async () => {
+    const customValue = document.getElementById("customFood").value.trim();
+
+    if (customValue) {
+        selectedOption = customValue;
+    }
+
+    if (!selectedOption) {
+        alert("Please choose or write your option");
+        return;
+    }
+
     const date = document.getElementById("date").value;
     const time = document.getElementById("time").value;
 
     try {
         await fetch(SCRIPT_URL, {
             method: "POST",
+            mode: "no-cors",
             body: JSON.stringify({
                 date,
                 time,
-                food: option
+                food: selectedOption
             })
         });
     } catch (e) {
@@ -53,21 +88,4 @@ async function sendAnswer(option) {
 
     step4.classList.add("hidden");
     step5.classList.remove("hidden");
-}
-
-document.querySelectorAll(".food").forEach(btn => {
-    btn.addEventListener("click", () => {
-        sendAnswer(btn.innerText);
-    });
-});
-
-document.getElementById("customBtn").onclick = () => {
-    const customValue = document.getElementById("customFood").value.trim();
-
-    if (!customValue) {
-        alert("Please write your option");
-        return;
-    }
-
-    sendAnswer(customValue);
 };
