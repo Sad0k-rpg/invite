@@ -37,7 +37,17 @@ document.getElementById("dateBtn").onclick = () => {
 };
 
 document.querySelectorAll(".food").forEach(btn => {
+
     btn.addEventListener("click", () => {
+
+        if (btn.classList.contains("selected")) {
+
+            btn.classList.remove("selected");
+            selectedOption = "";
+
+            return;
+        }
+
         document.querySelectorAll(".food").forEach(item => {
             item.classList.remove("selected");
         });
@@ -47,6 +57,7 @@ document.querySelectorAll(".food").forEach(btn => {
 
         document.getElementById("customFood").value = "";
     });
+
 });
 
 document.getElementById("customFood").addEventListener("input", () => {
