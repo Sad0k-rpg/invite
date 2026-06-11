@@ -2,10 +2,75 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Date Invite</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>❤️ Date Invite</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>❤️ Привіт</h1>
-    <p>Якщо ти це бачиш, GitHub Pages працює.</p>
+
+<div class="container">
+
+    <div id="step1" class="card">
+        <h1>🌸 Підеш зі мною на побачення? 🌸</h1>
+
+        <div class="buttons">
+            <button id="yesBtn">Так ❤️</button>
+            <button id="noBtn">Ні 🙈</button>
+        </div>
+    </div>
+
+    <div id="step2" class="card hidden">
+        <h1>😳 Ти реально погодилась?</h1>
+        <p>Я був готовий до відмови 😂</p>
+
+        <button id="continueBtn">Далі ➜</button>
+    </div>
+
+    <div id="step3" class="card hidden">
+        <h1>📅 Коли ти вільна?</h1>
+
+        <input type="date" id="date">
+
+        <select id="time">
+            <option value="">Оберіть час</option>
+            <option>17:00</option>
+            <option>18:00</option>
+            <option>19:00</option>
+            <option>20:00</option>
+            <option>21:00</option>
+        </select>
+
+        <button id="dateBtn">Далі ➜</button>
+    </div>
+
+    <div id="step4" class="card hidden">
+        <h1>🍕 Що хочеться?</h1>
+
+        <div class="food-grid">
+            <button class="food">🍕 Pizza</button>
+            <button class="food">🍣 Sushi</button>
+            <button class="food">🍔 Burger</button>
+            <button class="food">🍝 Pasta</button>
+            <button class="food">🎬 Movie</button>
+            <button class="food">🍜 Ramen</button>
+        </div>
+    </div>
+
+    <div id="step5" class="card hidden">
+        <h1>❤️ Все готово!</h1>
+
+        <p>
+            Дякую за відповідь 🥰
+        </p>
+
+        <p>
+            Побачимось скоро 😉
+        </p>
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
 </body>
 </html>
