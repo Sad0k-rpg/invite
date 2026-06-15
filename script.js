@@ -2,27 +2,43 @@ const SCRIPT_URL =
 "https://script.google.com/macros/s/AKfycbxP3fr8fGcf9g6jdpcd3QHti_PUSAy2R2tJMlSSlP6tOPAnSUka54LwtlxQ13cgfz6j/exec";
 
 let selectedOption = "";
+let noAttempts = 0;
+
+const step1 = document.getElementById("step1");
+const step2 = document.getElementById("step2");
+const step3 = document.getElementById("step3");
+const step4 = document.getElementById("step4");
+const step5 = document.getElementById("step5");
 
 const noBtn = document.getElementById("noBtn");
 
-/* NO button escape logic */
-
 function moveNoButton() {
-
     const card = document.getElementById("step1");
-
     const cardRect = card.getBoundingClientRect();
     const btnRect = noBtn.getBoundingClientRect();
 
-    const maxX = cardRect.width - btnRect.width - 40;
-    const maxY = cardRect.height - btnRect.height - 40;
+    const maxX = cardRect.width - btnRect.width - 30;
+    const maxY = cardRect.height - btnRect.height - 30;
 
-    const x = Math.floor(Math.random() * maxX);
-    const y = Math.floor(Math.random() * maxY);
+    const x = Math.floor(Math.random() * Math.max(maxX, 1));
+    const y = Math.floor(Math.random() * Math.max(maxY, 1));
 
-    noBtn.style.position = "absolute";
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
+
+    noAttempts++;
+
+    if (noAttempts === 10) {
+        noBtn.innerText = "Still trying? 🙂";
+    }
+
+    if (noAttempts === 20) {
+        noBtn.innerText = "That's not an option";
+    }
+
+    if (noAttempts === 40) {
+        noBtn.innerText = "Just press Yes ❤️";
+    }
 }
 
 noBtn.addEventListener("mouseover", moveNoButton);
@@ -31,6 +47,7 @@ noBtn.addEventListener("click", moveNoButton);
 noBtn.addEventListener("touchstart", moveNoButton);
 
 document.addEventListener("mousemove", (e) => {
+    if (step1.classList.contains("hidden")) return;
 
     const rect = noBtn.getBoundingClientRect();
 
@@ -42,12 +59,10 @@ document.addEventListener("mousemove", (e) => {
         Math.pow(e.clientY - btnCenterY, 2)
     );
 
-    if (distance < 120) {
+    if (distance < 140) {
         moveNoButton();
     }
 });
-
-/* Step navigation */
 
 document.getElementById("yesBtn").onclick = () => {
     step1.classList.add("hidden");
@@ -60,9 +75,8 @@ document.getElementById("continueBtn").onclick = () => {
 };
 
 document.getElementById("dateBtn").onclick = () => {
-
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
+    const date = document.getElementById("date").value.trim();
+    const time = document.getElementById("time").value.trim();
 
     if (!date || !time) {
         alert("Please choose date and time");
@@ -73,17 +87,11 @@ document.getElementById("dateBtn").onclick = () => {
     step4.classList.remove("hidden");
 };
 
-/* Food selection */
-
 document.querySelectorAll(".food").forEach(btn => {
-
     btn.addEventListener("click", () => {
-
         if (btn.classList.contains("selected")) {
-
             btn.classList.remove("selected");
             selectedOption = "";
-
             return;
         }
 
@@ -92,32 +100,23 @@ document.querySelectorAll(".food").forEach(btn => {
         });
 
         btn.classList.add("selected");
-
         selectedOption = btn.innerText;
 
         document.getElementById("customFood").value = "";
     });
-
 });
 
-/* Custom option */
-
 document.getElementById("customFood").addEventListener("input", () => {
-
     document.querySelectorAll(".food").forEach(item => {
         item.classList.remove("selected");
     });
 
-    selectedOption =
-        document.getElementById("customFood").value.trim();
+    selectedOption = document.getElementById("customFood").value.trim();
 });
 
-/* Submit */
-
 document.getElementById("customBtn").onclick = async () => {
-
-    const customValue =
-        document.getElementById("customFood").value.trim();
+    const customValue = document.getElementById("customFood").value.trim();
+    const comment = document.getElementById("comment").value.trim();
 
     if (customValue) {
         selectedOption = customValue;
@@ -128,25 +127,24 @@ document.getElementById("customBtn").onclick = async () => {
         return;
     }
 
-    const date = document.getElementById("date").value;
-    const time = document.getElementById("time").value;
+    const date = document.getElementById("date").value.trim();
+    const time = document.getElementById("time").value.trim();
 
     try {
-
         await fetch(SCRIPT_URL, {
             method: "POST",
             mode: "no-cors",
             body: JSON.stringify({
                 date,
                 time,
-                food: selectedOption
+                food: selectedOption,
+                comment
             })
         });
-
     } catch (e) {
         console.log(e);
     }
 
     step4.classList.add("hidden");
     step5.classList.remove("hidden");
-};
+}
