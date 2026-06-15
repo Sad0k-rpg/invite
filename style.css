@@ -1,210 +1,158 @@
 *{
-    box-sizing:border-box;
+box-sizing:border-box;
 }
 
 html,
 body{
-    margin:0;
-    width:100%;
-    min-height:100%;
-    overflow-x:hidden;
+margin:0;
+padding:0;
+width:100%;
+overflow-x:hidden;
 }
 
 body{
-    font-family:Arial,sans-serif;
-    background:#ffdce8;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
-    padding:16px;
+font-family:Arial,sans-serif;
+background:#ffdce8;
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:15px;
 }
 
 .container{
-    width:100%;
-    max-width:640px;
+width:100%;
+max-width:650px;
 }
 
 .card{
-    background:white;
-    width:100%;
-    max-width:100%;
-    padding:36px;
-    border-radius:25px;
-    text-align:center;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
-    overflow:hidden;
+background:#fff;
+width:100%;
+padding:30px;
+border-radius:25px;
+text-align:center;
+box-shadow:0 5px 20px rgba(0,0,0,.1);
 }
 
 .hidden{
-    display:none;
+display:none;
 }
 
 h1{
-    font-size:42px;
-    line-height:1.15;
-    margin:0 0 28px;
+font-size:42px;
+margin-bottom:25px;
+line-height:1.2;
 }
 
 p{
-    font-size:22px;
+font-size:20px;
 }
 
 .buttons{
-    margin-top:35px;
-    position:relative;
-    height:160px;
+position:relative;
+height:180px;
+margin-top:30px;
 }
 
 button{
-    border:none;
-    cursor:pointer;
-    padding:16px 32px;
-    border-radius:40px;
-    font-size:24px;
+border:none;
+cursor:pointer;
+border-radius:40px;
+padding:16px 32px;
+font-size:22px;
 }
 
 #yesBtn{
-    background:#ff4f93;
-    color:white;
+background:#ff4f93;
+color:white;
 }
 
 #noBtn{
-    position:absolute;
-    background:#d3b2ff;
-    left:52%;
-    top:70px;
-    z-index:10;
+position:absolute;
+background:#d3b2ff;
+left:55%;
+top:70px;
 }
 
 #continueBtn,
 #dateBtn,
 #customBtn{
-    background:#ff4f93;
-    color:white;
-    margin-top:20px;
+background:#ff4f93;
+color:white;
 }
 
-input,
-select{
-    display:block;
-    width:100%;
-    max-width:100%;
-    padding:16px;
-    margin:12px 0;
-    border-radius:15px;
-    border:1px solid #ddd;
-    font-size:22px;
-    text-align:center;
+#step3 input{
+width:100%;
+height:58px;
+margin:12px 0;
+border:1px solid #ddd;
+border-radius:18px;
+background:#efefef;
+padding:0 15px;
+text-align:center;
+font-size:18px;
 }
 
 .food-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
-    margin-bottom:20px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:12px;
+margin-bottom:15px;
 }
 
 .food{
-    background:#ffe8f2;
-    color:black;
-    width:100%;
-}
-
-.food.selected{
-    background:#ff4f93;
-    color:white;
+background:#ffe8f2;
 }
 
 #customFood{
-    margin-top:20px;
+width:100%;
+height:58px;
+border:1px solid #ddd;
+border-radius:18px;
+padding:0 15px;
+margin-top:15px;
 }
 
 #customBtn{
-    width:100%;
+width:100%;
+margin-top:15px;
 }
 
 @media(max-width:768px){
 
-    body{
-        padding:12px;
-        align-items:center;
-    }
-
-    .container{
-        max-width:100%;
-    }
-
-    .card{
-        width:100%;
-        padding:24px 18px;
-        border-radius:24px;
-    }
-
-    h1{
-        font-size:26px;
-        line-height:1.2;
-        margin-bottom:24px;
-    }
-
-    p{
-        font-size:17px;
-    }
-
-    button{
-        font-size:17px;
-        padding:13px 22px;
-    }
-
-    input,
-    select{
-        width:100%;
-        max-width:100%;
-        padding:14px 12px;
-        font-size:18px;
-        margin:10px 0;
-    }
-
-    .buttons{
-        height:130px;
-    }
-
-    .food-grid{
-        grid-template-columns:1fr;
-        gap:12px;
-    }
-
-    #step1{
-        min-height:360px;
-    }
-
-    #noBtn{
-        left:45%;
-        top:70px;
-    }
-}
-/* FIX FOR IPHONE DATE/TIME FIELDS */
-
-#step3{
-    overflow:hidden;
+```
+body{
+    padding:12px;
 }
 
-#step3 input,
-#step3 select{
-    width:100% !important;
-    max-width:100% !important;
-    min-width:0 !important;
-    box-sizing:border-box !important;
-    display:block;
+.card{
+    padding:20px;
 }
 
-@media(max-width:768px){
+h1{
+    font-size:28px;
+}
 
-    #step3 input,
-    #step3 select{
-        width:100% !important;
-        padding:12px !important;
-        font-size:18px !important;
-    }
+p{
+    font-size:18px;
+}
+
+button{
+    font-size:18px;
+    padding:14px 22px;
+}
+
+.food-grid{
+    grid-template-columns:1fr;
+}
+
+#noBtn{
+    left:45%;
+}
+
+#step3 input{
+    font-size:17px;
+}
+```
 
 }
