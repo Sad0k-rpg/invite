@@ -10,16 +10,19 @@ body{
 
 .container{
     width:100%;
-    max-width:900px;
-    padding:20px;
+    max-width:700px;
+    padding:15px;
+    box-sizing:border-box;
 }
 
 .card{
     background:white;
-    padding:50px;
+    padding:40px;
     border-radius:25px;
     text-align:center;
     box-shadow:0 5px 20px rgba(0,0,0,.1);
+    width:100%;
+    box-sizing:border-box;
 }
 
 .hidden{
@@ -119,14 +122,21 @@ select{
     width:100%;
 }
 
+/* MOBILE */
+
 @media(max-width:768px){
 
+    .container{
+        padding:10px;
+    }
+
     .card{
-        padding:30px 20px;
+        padding:25px 15px;
     }
 
     h1{
-        font-size:32px;
+        font-size:28px;
+        line-height:1.2;
     }
 
     p{
@@ -134,14 +144,29 @@ select{
     }
 
     button{
-        font-size:20px;
+        font-size:18px;
+        padding:14px 24px;
+    }
+
+    input,
+    select{
+        width:100%;
+        padding:14px;
+        font-size:18px;
+        box-sizing:border-box;
     }
 
     .food-grid{
         grid-template-columns:1fr;
+        gap:12px;
     }
 
     #step1{
-        min-height:420px;
+        min-height:380px;
+    }
+
+    #noBtn{
+        left:45%;
+        top:80px;
     }
 }
